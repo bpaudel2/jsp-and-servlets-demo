@@ -1,0 +1,10 @@
+<html>
+
+<body>
+
+Let's have some fun here: 
+<%= com.bikram.jsp.FunUtils.makeItLower("FUN FUN FUN") %>
+
+</body>
+
+</html>

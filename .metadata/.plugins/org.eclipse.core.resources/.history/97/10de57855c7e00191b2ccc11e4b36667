@@ -1,0 +1,20 @@
+<%@ page import="com.bikram.jsp.FunUtils" %>
+
+<!-- 
+Importing additional and wild cards. 
+<%@ page import="com.bikram.jsp.*,java.util.ArrayList" %>
+
+ -->
+<html>
+
+<body>
+
+Let's have some fun here: 
+<!--Commenting because we imported <%= com.bikram.jsp.FunUtils.makeItLower("FUN FUN FUN") %>
+ -->
+
+<%= makeItLower("FUN FUN FUN") %>
+
+</body>
+
+</html>

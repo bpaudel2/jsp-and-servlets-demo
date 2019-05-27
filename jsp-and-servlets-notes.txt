@@ -1,0 +1,252 @@
+Web Application:
+
+web browser ---> web server --->database
+
+JSP and Servlets:
+-- JAVA code that runs on the web server
+-- Reads user's actions...normally from HTML form
+-- Performs the work
+-- Returns an HTML page that is generated dynamically
+JSPs and Servlets are key components of the JAVA Enterprise Edition (JAVA EE)
+Popular MVC frameworks are actually built on top of JSP and Servlets
+	-- Spring
+	-- JSF
+	-- Struts
+
+Java Application Server - Tomcat:
+ -- Full download - Crediantials admin admin
+Tomcat will run on : http://localhost:8080/
+Right Click tomcat icon on button right on your laptop and hit configure
+to configure tomcat
+
+JDE - Eclipse
+Connecting Eclipse to Tomcat:
+Switch to JAVA EE Perspective on Right hand side of your screen
+If JAVA EE is not there, click on Perspective and then JAVA EE and click OK
+If you don't see JAVA EE on your perspective list, go head and install it from help -->install new software
+Once you have JAVA EE perspective, you will see server tab at the buttom.
+Click on it and add a new server under Apache, tomcat.
+
+JSP:
+HTML with JAVA code
+include dynamic content from JAVA code
+JSP is processed on the server; tomcat server
+You put the jsp files in your WebContent folder (must have .jsp extension)
+For example:
+	<HTML>
+	<body>
+	<h3>Hello World of JAVA! </h3>
+	The time on the server is <%= new java.util.Date() %>
+	</body>
+	</HTML>
+To create JSP project;
+File->New->Dynamic Web Project
+Make sure target runtime is set up for apache tomcat
+Now, once you have project created, add a .jsp file in your WebContent directory.
+Then you can right click the file and run it as Run on Server. 
+
+JSP Expression:
+JSP Expression : <%= some Java expression %>
+JSP Scriptlet : <% Some JAVA code: 1 to many lines %>
+JSP Declaration : <%! variable or method declaration %>
+
+JSP Scriptlets:
+exp:
+<h3>
+	for(int i=1; i<=5; i++){
+		out.printlin("I really live JAVA."+i);
+	}
+</h3>
+ 
+Best practice:
+	1) Minimize the amount of scriptlet code in JSP
+	2) Avoid dumping thousands of lines of code in a JSP
+	3) Refactor this into a separate JAVA class...make use of MVC
+	
+JSP Declaration	
+	declare a method in the JSP page
+	call the method in the same page
+	exp:
+	<%!
+		String makeItLower(String data){
+			return data.toLowerCase();
+		}
+	
+	%>
+	Lower case "Hello World": <%= makeItLower("Hello World") %>
+	
+	Best Practice:
+		Minimize the number of declaration in a JSP
+		Avoid dumping thousands of lines of code in a JSP
+		Refactor this into a separate JAVA class... make use of MVC
+		
+		
+CALLING JAVA CLASS FROM JSP:
+	importing multiple classes and use of wild cards
+	<%@ page import="com.bikram.jsp.*,java.util.ArrayList" %>
+	
+JSP Built-in Server Objects:
+	Given to you for free
+	Use them directly in your page
+	
+	List of commonly used JSP objects
+	request: contains HTTP request headers and form data
+	response: provides HTTP support for sending response
+	out: JspWriter for including content in HTML page
+	session: Unique session for each user of the web application
+	application: shared data for all users of the web application
+	
+Including Files:
+	including header and footer
+	<jsp:include page="my-header.html">
+	<jsp:include page="my-footer.jsp">
+	
+HTML Forms OverView :
+	exp:
+	
+	<form action="student-response.jsp">
+	First Name: <input type="text" name="firstName" />
+	Last Name: <input type="text" name="lastName" />
+	<input type="submit" value="submit" />
+	</form>
+	
+	JSP File:
+	The student is confirmed
+	<%= request.getParameter("firstName") %> <%= request.getParameter("lastName") %>
+	
+	Alternative syntax
+	The student is confirmed: $(param.firstName) $(param.lastName) //only used for displaying form data
+	
+JSP Session Object:
+	JSP session is created once for user's browser session. Unique for this user.
+	Commonly used when you need to keep track of the user's actions
+	Session object are stored in memory(memory in Tomcat) 
+	adding data to session object:
+	session.setAttribute(String name, Object value);
+	retrieve data from session object
+	Object session.getAttribute(String name)
+	JSP Session -Other useful methods
+	isNew():boolean --> returns true if the session is new
+	getId():String --> returns the session id
+	invalidate():void --> invalidates this session and unbinds any object associated with it
+	setMaxInactiveInterval(long mills):void --> Sets the idle time for a session to expire. The value is supplied in milliseconds
+
+Cookies:
+	Purpose of Cookies:
+	-- Personalize a web site for a user
+	-- Keep track of user preferences
+		favorite programming language: JAVA
+		favorite departure airport: Philadelphia(PHL)
+	What is Cookies	
+	-- Text data exchanged between web browser and server
+	Contents:
+		-- Name/Value pair
+		application can make use of multiple cookie
+	where is cookie ?
+	In firefox, preferences, privacy, and remove cookie
+Cookie API- Package:
+	Cookie class defined in package: javax.servlet.http
+	Package imported for free in all JSP pages.
+	Constructor:
+	Cookie(String name, String value)//constructs a cookie with the specified name and value
+	exp:
+	<%
+		String favLang = request.getParameter("favoriteLanguage");
+		// Create cookie
+		Cookie theCookie = new Cookie("myApp.favoriteLanguage",favLang);
+		// Set life span ... total number of seconds
+		theCookie.setMaxAge(60*60*24*365); //by default cookie will expire when browser closes
+		// send cookie to browser
+		response.addCookie(theCookie);
+	%>
+	max on 20 cookie per domain per path
+	
+	<%
+		String favLang = "Java";
+		Cookie[] theCookies = request.getCookies();
+		if(theCookies != null){
+			for(Cookie tempCookie: theCookies){
+				if("myapp.favoriteLanguage".equals(tempCookie.getName())){
+					favLang = tempCookie.getValue();
+					break;
+				}
+			}
+		}
+	%>
+
+JSP Tags:
+	JSP Custom Tags, JSP Standard Tag Library (JSTL)
+	JSP CUstom Tags is Best Practice
+		-- Move heavy business logic into supporting class
+		-- Insert JSP custom tag to use supporting class
+	<demo:weatherReport city="Philadelphia" />
+	Benefits of custom tags:
+		-- minimize the amount of scriptlet code in jsp
+		-- avoids dumping thousands of lines of code in a JSP
+		-- JSP page is simple...main focus of JSP is only presentation
+		-- Tag is reusable
+		Oracle created a Specification for standard tags
+		1) Core
+		2) Messages Formatting I18N
+		3) Functions
+		4) XML 
+		5) SQL //this tag is considered a bad practice, only good for prototyping
+		
+Install JSP Standard Tag Library:
+	Inside -> WebContent -> WEB-INF ->lib ->put your jstl jar files here
+	
+JSTL Core Tag:
+	catch --> catches any throwable to occurs in the boy
+	choose --> conditional tag that can be used for exclusive operations, similar to switch statement
+	if  --> simple if/then conditional
+	import --> retrieves a URL and exposes its content on the page or a variable
+	forEach --> Iterates over a collection of variable
+	forTokens --> Iterates over a collection of tokens
+	out --> used in scriplet to display output, simalr to <%= ... %>
+	otherwise -->used with the <choose> tag to handle the else clause
+	param --> adds a parameter to a URL
+	redirect --> redirects the browser to a new URL
+	remove -->removes a scoped variable
+	set --> assigns an expression value to a variable
+	url --> defines a URL with query parameters
+	when --> used with <choose> tag, when a condition is true
+	
+	Every page that uses the Core tags must include this reference
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
+JSTL Function tags:
+	Colletion Length: length
+	String manipulation: toUpperCase, toLowerCase, substring, substringAfter,
+		substringBefore, trim, replace, indexOf, startsWith, endsWith, contains,
+		containsIgnoreCase, split, join, escapeXml,
+	Every page uses the Function tags must include this reference:
+
+
+JSTL Internationalization:
+	The term internationalization is frequently abbreviated as I18N. 
+	There are 18 letters between "i" and the last "n" ...geeky.
+	Instead of hard-coding display txt/message in your application, make use of 
+	labels/ the placeholders.
+	You need to create translated version of each label (no magic here)
+	Function List:
+	Setting Locale: setLocale, requestEncoding
+	Messaging: bundle, message, param, setBundle
+	Number and Date Formatting: formatNumber, formatDate, parseDate, parseNumber, 
+								setTimeZone, timeZone
+	
+	Locale = Language Code + Country Code
+	1) Your resource file should follow specific formatDate	
+		<your project file name>_LANGUAGECODE_COUNTRYCODE.properties
+		Exmples:
+		mylabels_es_ES.properties
+		mylabels_de_DE.properties
+	Language Codes are based on ISO Standard 639-1 (2 letter code)
+	Country codes are based on ISO Standard 3166-2 (2 letter code)
+	
+Servlets:
+	JAVA class that is processed on the server.
+	JAVA class generates HTML that is returned to browser
+	Can read HTML form data, use cookies and session etc...
+	At a high level, similar functionality to JSPs
+		
+

@@ -1,0 +1,16 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<html>
+<body>
+
+<fmt:message key="lable.greeting" /><br/><br/>
+<fmt:message key="lable.firstname" /> <i>John</i><br/>
+<fmt:message key="lable.lastname" /><i>Doe</i><br/><br/>
+<fmt:message key="lable.welcome" /><br/>
+
+
+</body>
+</html>
+
+
