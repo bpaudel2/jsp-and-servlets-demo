@@ -248,5 +248,67 @@ Servlets:
 	JAVA class generates HTML that is returned to browser
 	Can read HTML form data, use cookies and session etc...
 	At a high level, similar functionality to JSPs
+	
+Compairing JSP and Servlets:
+	JSPs:
+		HTML file with .jsp extension
+		Contains static HTML
+		JSP to generate HTML
+		Has built-in JSP objects
+	Servlets:
+		JAVA class file
+		Generate all HTML
+		More steps to access web objects
+	
+	Best Practice:
+		Intergrate them both together
+			Servlet does the business logic
+			JSP handles the presentation view
+		Model-View-Controller(MVC) Design Pattern
+	
+Between GET and POST:
+	When form is sent using Get, the form data are appended at the end of url.
+	When form is sent using post, the form data are passed in the body of HTTP request message. So, you won't see it in browser url.
+	
+	GET is good for:
+		debugging
+		bookmark or email URL
+		limitations on data length
+		For non sensitive method
+	POST:
+		Can not bookmark or email URL
+		No limitations on data length
+		Can also send binary data
+		For sesitive method
+
+Servlet Configuration Parameters:
+	Your web app can make use of configuration parameters.
+	Located in standard file: WEB-INF/web.xml
+
+
+MVC With Servlet and JSP:
+	Web Browser --> Controller (Servlet)  -->Model
+	                    |
+						|
+						>View(JSP)
+						
+	Benefits of MVC:
+		Minimizes HTML code in Servlet
+			no more out.println(...) in Servlet code
+		Minimize JAVA business logic in JSPs
+			no more large scriptlets in JSP code
+		
+	Servlet can call a JSP using a request dispatcher
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/view_students.jsp");
+		dispatcher.forward(request, response);
+	Servlet can send data to JSP
+		exp:
+		String[] students = {"Susan", "Anil", "Mohammed"};
+		request.setAttribute("student_list",students);
+	JSP Page to view data, can use JSTL to access data
+	
+		
+	
+		
 		
 

@@ -1,6 +1,8 @@
 INDEX VERSION 1.131
 C:\Users\Bikram\projects\JSP AND SERVLETS-BUILD A DATABASE APP\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3423761772.index
 \tagDemo\src
+C:\Users\Bikram\projects\JSP AND SERVLETS-BUILD A DATABASE APP\jsp-and-servlets-demo\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\268336506.index
+\servletdemo\src
 C:\Users\Bikram\projects\JSP AND SERVLETS-BUILD A DATABASE APP\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2884291122.index
 \jspdemo\src
 C:\Users\Bikram\projects\JSP AND SERVLETS-BUILD A DATABASE APP\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2076628383.index
